@@ -20,6 +20,7 @@
 		13D2981922D1FD32005A7F06 /* PanelTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2981822D1FD32005A7F06 /* PanelTransition.swift */; };
 		13D2981B22D1FD4F005A7F06 /* ChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2981A22D1FD4F005A7F06 /* ChildViewController.swift */; };
 		13D2981D22D1FD71005A7F06 /* InstantPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2981C22D1FD71005A7F06 /* InstantPanGestureRecognizer.swift */; };
+		13D2982222D204C2005A7F06 /* DimmPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2982122D204C2005A7F06 /* DimmPresentationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		13D2981822D1FD32005A7F06 /* PanelTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelTransition.swift; sourceTree = "<group>"; };
 		13D2981A22D1FD4F005A7F06 /* ChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildViewController.swift; sourceTree = "<group>"; };
 		13D2981C22D1FD71005A7F06 /* InstantPanGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantPanGestureRecognizer.swift; sourceTree = "<group>"; };
+		13D2982122D204C2005A7F06 /* DimmPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmPresentationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,9 +96,9 @@
 			isa = PBXGroup;
 			children = (
 				13D2981822D1FD32005A7F06 /* PanelTransition.swift */,
-				130F236F22C7422E00A9A7D6 /* PresentationController.swift */,
-				13D2982022D1FDB2005A7F06 /* Animations */,
 				13D2981222D1FCF7005A7F06 /* TransitionDriver.swift */,
+				13D2982322D20547005A7F06 /* Presentation controller */,
+				13D2982022D1FDB2005A7F06 /* Animations */,
 				130F237122C74ADD00A9A7D6 /* Math.swift */,
 				13D2981C22D1FD71005A7F06 /* InstantPanGestureRecognizer.swift */,
 			);
@@ -110,6 +112,15 @@
 				13D2981622D1FD1E005A7F06 /* DismissAnimation.swift */,
 			);
 			path = Animations;
+			sourceTree = "<group>";
+		};
+		13D2982322D20547005A7F06 /* Presentation controller */ = {
+			isa = PBXGroup;
+			children = (
+				130F236F22C7422E00A9A7D6 /* PresentationController.swift */,
+				13D2982122D204C2005A7F06 /* DimmPresentationController.swift */,
+			);
+			path = "Presentation controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +204,7 @@
 				13D2981522D1FD0F005A7F06 /* PresentAnimation.swift in Sources */,
 				130F237222C74ADD00A9A7D6 /* Math.swift in Sources */,
 				13D2981D22D1FD71005A7F06 /* InstantPanGestureRecognizer.swift in Sources */,
+				13D2982222D204C2005A7F06 /* DimmPresentationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

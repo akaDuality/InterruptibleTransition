@@ -10,20 +10,30 @@ import UIKit
 
 class PanelTransition: NSObject, UIViewControllerTransitioningDelegate {
     
-    let driver = TransitionDriver()
-    var interactivePresentation = true
+    private let driver = TransitionDriver()
+    
+    
+    // MARK: - Presentation controller
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        
+        driver.link(to: presented)
+        let presentationController = DimmPresentationController(presentedViewController: presented,
+                                                                presenting: presenting)
+        presentationController.driver = driver
+        return presentationController
+    }
+    
+    
+    // MARK: - Present
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return PresentAnimation()
     }
     
     func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        if interactivePresentation {
-            driver.direction = .present
-            return driver
-        } else {
-            return nil
-        }
+        driver.direction = .present
+        return driver
     }
+    
     
     // MARK: - Dismiss
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -31,18 +41,7 @@ class PanelTransition: NSObject, UIViewControllerTransitioningDelegate {
     }
     
     func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        if interactivePresentation {
-            driver.direction = .dismiss
-            return driver
-        } else {
-            return nil
-        }
-    }
-    
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        
-        driver.link(to: presented)
-        return PresentationController(presentedViewController: presented,
-                                      presenting: presenting)
+        driver.direction = .dismiss
+        return driver
     }
 }

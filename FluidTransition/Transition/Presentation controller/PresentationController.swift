@@ -7,7 +7,10 @@
 //
 
 import UIKit
+
 class PresentationController: UIPresentationController {
+    
+    var driver: TransitionDriver!
     
     override var shouldPresentInFullscreen: Bool {
         return false
@@ -28,5 +31,7 @@ class PresentationController: UIPresentationController {
     
     override func presentationTransitionDidEnd(_ completed: Bool) {
         super.presentationTransitionDidEnd(completed)
+        
+        driver.direction = .dismiss
     }
 }

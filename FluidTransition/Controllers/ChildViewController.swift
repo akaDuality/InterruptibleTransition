@@ -25,6 +25,13 @@ class ChildViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = UIColor(hue: 0.2, saturation: 0.8, brightness: 0.9, alpha: 1)
+        view.layer.cornerRadius = 24
+        
+        addDismissButton()
+    }
+    
+    private func addDismissButton() {
         let button = UIButton(type: .system)
         button.setTitle("Dismiss", for: .normal)
         button.addTarget(self, action: #selector(dismissSelf), for: .touchUpInside)
@@ -37,8 +44,6 @@ class ChildViewController: UIViewController {
             button.widthAnchor.constraint(equalToConstant: 200),
             button.heightAnchor.constraint(equalToConstant: 80),
             ])
-        
-        view.backgroundColor = UIColor(white: 0.7, alpha: 1)
     }
     
     @objc func dismissSelf() {

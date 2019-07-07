@@ -28,7 +28,12 @@ class TransitionDriver: UIPercentDrivenInteractiveTransition {
     
     override var wantsInteractiveStart: Bool {
         get {
-            return false
+            switch direction {
+            case .present:
+                return false
+            case .dismiss:
+                return isInteractiveDismiss
+            }
         }
         
         set { }
@@ -42,6 +47,8 @@ class TransitionDriver: UIPercentDrivenInteractiveTransition {
         self.presentedController = controller
     }
     
+    var isInteractiveDismiss: Bool = false
+    
     @objc private func handle(recognizer r: UIPanGestureRecognizer) {
         let view = r.view!
         let maxValue = r.view!.bounds.height
@@ -51,9 +58,11 @@ class TransitionDriver: UIPercentDrivenInteractiveTransition {
         case .began:
             self.pause()
             
-//            if direction == .dismiss {
-//                presentedController?.dismiss(animated: true)
-//            }
+            if direction == .dismiss {
+                isInteractiveDismiss = true
+                presentedController?.dismiss(animated: true)
+                self.update(0)
+            }
             
         case .changed:
             let translation = r.translation(in: view).y
@@ -72,22 +81,43 @@ class TransitionDriver: UIPercentDrivenInteractiveTransition {
             let velocityOffset = r.velocity(in: view).projectedOffset(decelerationRate: .normal)
             let endLocation = location + velocityOffset
             
-            if endLocation.y < maxValue / 2 && direction == .present {
-                let estimatedTranslation = -endLocation.y
-                let completionSpeed = maxValue / estimatedTranslation
-                self.completionSpeed = 1 + completionSpeed
-                finish()
-            } else {
-                let estimatedTranslation = maxValue - endLocation.y
-                let completionSpeed = maxValue / estimatedTranslation
-                self.completionSpeed = 1 + completionSpeed
-                cancel()
-            }
+            let isPresentationCompleted = endLocation.y < maxValue / 2
+            let presentationCompetion = self.presentationCompetion(endLocation: endLocation, maxValue: maxValue)
+            let dismissCompetion      = self.dismissCompetion(endLocation: endLocation, maxValue: maxValue)
             
-            self.direction.toggle()
+            switch direction {
+            case .present:
+                if isPresentationCompleted{
+                    self.completionSpeed = 1 + presentationCompetion
+                    finish()
+                } else {
+                    self.completionSpeed = 1 + dismissCompetion
+                    cancel()
+                }
+            case .dismiss:
+                if isPresentationCompleted{
+                    self.completionSpeed = 1 + presentationCompetion
+                    cancel()
+                } else {
+                    self.completionSpeed = 1 + dismissCompetion
+                    finish()
+                }
+            }
             
         default:
             break
         }
+    }
+    
+    private func presentationCompetion(endLocation: CGPoint, maxValue: CGFloat) -> CGFloat {
+        let estimatedTranslation = -endLocation.y
+        let completionSpeed = maxValue / estimatedTranslation
+        return completionSpeed
+    }
+    
+    private func dismissCompetion(endLocation: CGPoint, maxValue: CGFloat) -> CGFloat {
+        let estimatedTranslation = maxValue - endLocation.y
+        let completionSpeed = maxValue / estimatedTranslation
+        return completionSpeed
     }
 }
