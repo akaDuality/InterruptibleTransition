@@ -43,7 +43,7 @@ class TransitionDriver: UIPercentDrivenInteractiveTransition {
     private var panRecognizer: UIPanGestureRecognizer?
     
     func link(to controller: UIViewController) {
-        self.presentedController = controller
+        presentedController = controller
         
         panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handle(recognizer:)))
         presentedController?.view.addGestureRecognizer(panRecognizer!)
@@ -64,7 +64,7 @@ class TransitionDriver: UIPercentDrivenInteractiveTransition {
             pause()
         case .changed:
             let increment = -r.incrementToBottom()
-            update(self.percentComplete + increment)
+            update(percentComplete + increment)
             
         case .ended, .cancelled:
             if r.isProjectedToDownHalf{

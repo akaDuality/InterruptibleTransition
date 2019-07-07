@@ -30,7 +30,6 @@ class PanelTransition: NSObject, UIViewControllerTransitioningDelegate {
     }
     
     func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        driver.direction = .present
         return driver
     }
     
@@ -41,7 +40,6 @@ class PanelTransition: NSObject, UIViewControllerTransitioningDelegate {
     }
     
     func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        driver.direction = .dismiss
         return driver
     }
 }
