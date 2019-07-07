@@ -32,92 +32,103 @@ class TransitionDriver: UIPercentDrivenInteractiveTransition {
             case .present:
                 return false
             case .dismiss:
-                return isInteractiveDismiss
+                let gestureIsActive = panRecognizer?.state == .began
+                return gestureIsActive
             }
         }
         
         set { }
     }
     
+    private var panRecognizer: UIPanGestureRecognizer?
     
     func link(to controller: UIViewController) {
-        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handle(recognizer:)))
-        controller.view.addGestureRecognizer(panRecognizer)
-        
         self.presentedController = controller
+        
+        panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handle(recognizer:)))
+        presentedController?.view.addGestureRecognizer(panRecognizer!)
     }
     
-    var isInteractiveDismiss: Bool = false
-    
     @objc private func handle(recognizer r: UIPanGestureRecognizer) {
-        let view = r.view!
-        let maxValue = r.view!.bounds.height
-        let location = r.location(in: view)
-        
+        switch direction {
+        case .present:
+            handlePresentation(recognizer: r)
+        case .dismiss:
+            handleDismiss(recognizer: r)
+        }
+    }
+    
+    private func handlePresentation(recognizer r: UIPanGestureRecognizer) {
         switch r.state {
         case .began:
-            self.pause()
-            
-            if direction == .dismiss {
-                isInteractiveDismiss = true
-                presentedController?.dismiss(animated: true)
-                self.update(0)
-            }
-            
+            pause()
         case .changed:
-            let translation = r.translation(in: view).y
-            r.setTranslation(.zero, in: nil)
-            
-            switch direction {
-            case .present:
-                let percentIncrement = -translation / maxValue
-                self.update(self.percentComplete + percentIncrement)
-            case .dismiss:
-                let percentIncrement = translation / maxValue
-                self.update(self.percentComplete + percentIncrement)
-            }
+            let increment = -r.incrementToBottom()
+            update(self.percentComplete + increment)
             
         case .ended, .cancelled:
-            let velocityOffset = r.velocity(in: view).projectedOffset(decelerationRate: .normal)
-            let endLocation = location + velocityOffset
-            
-            let isPresentationCompleted = endLocation.y < maxValue / 2
-            let presentationCompetion = self.presentationCompetion(endLocation: endLocation, maxValue: maxValue)
-            let dismissCompetion      = self.dismissCompetion(endLocation: endLocation, maxValue: maxValue)
-            
-            switch direction {
-            case .present:
-                if isPresentationCompleted{
-                    self.completionSpeed = 1 + presentationCompetion
-                    finish()
-                } else {
-                    self.completionSpeed = 1 + dismissCompetion
-                    cancel()
-                }
-            case .dismiss:
-                if isPresentationCompleted{
-                    self.completionSpeed = 1 + presentationCompetion
-                    cancel()
-                } else {
-                    self.completionSpeed = 1 + dismissCompetion
-                    finish()
-                }
+            if r.isProjectedToDownHalf{
+                cancel()
+            } else {
+                finish()
             }
+            
+        case .failed:
+            cancel()
             
         default:
             break
         }
     }
     
-    private func presentationCompetion(endLocation: CGPoint, maxValue: CGFloat) -> CGFloat {
-        let estimatedTranslation = -endLocation.y
-        let completionSpeed = maxValue / estimatedTranslation
-        return completionSpeed
+    private func handleDismiss(recognizer r: UIPanGestureRecognizer) {
+        switch r.state {
+        case .began:
+            presentedController?.dismiss(animated: true)
+            
+        case .changed:
+            update(percentComplete + r.incrementToBottom())
+            
+        case .ended, .cancelled:
+            if r.isProjectedToDownHalf {
+                finish()
+            } else {
+                cancel()
+            }
+
+        case .failed:
+            cancel()
+            
+        default:
+            break
+        }
+    }
+}
+
+private extension UIPanGestureRecognizer {
+    
+    var maxValue: CGFloat {
+        return view!.bounds.height
     }
     
-    private func dismissCompetion(endLocation: CGPoint, maxValue: CGFloat) -> CGFloat {
-        let estimatedTranslation = maxValue - endLocation.y
-        let completionSpeed = maxValue / estimatedTranslation
-        return completionSpeed
+    var isProjectedToDownHalf: Bool {
+        let endLocation = projectedOffset(decelerationRate: .fast)
+        let isPresentationCompleted = endLocation.y > maxValue / 2
+        
+        return isPresentationCompleted
+    }
+    
+    func projectedOffset(decelerationRate: UIScrollView.DecelerationRate) -> CGPoint {
+        let velocityOffset = velocity(in: view).projectedOffset(decelerationRate: .normal)
+        let result = location(in: view!) + velocityOffset
+        return result
+    }
+    
+    func incrementToBottom() -> CGFloat {
+        let translation = self.translation(in: view).y
+        setTranslation(.zero, in: nil)
+        
+        let percentIncrement = translation / maxValue
+        return percentIncrement
     }
 }
