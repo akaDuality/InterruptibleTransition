@@ -15,16 +15,7 @@ class ParentViewController: UIViewController {
     }
     
     @IBAction func openDidPress(_ sender: Any) {
-        self.present(ChildViewController(), animated: true)
+        let child = ChildViewController()
+        self.present(child, animated: true)
     }
 }
-
-class ChildViewController: UIViewController {
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.view.backgroundColor = UIColor(white: 0.9, alpha: 1)
-    }
-}
-

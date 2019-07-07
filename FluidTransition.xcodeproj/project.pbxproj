@@ -12,6 +12,14 @@
 		130F236322C69AB700A9A7D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 130F236122C69AB700A9A7D6 /* Main.storyboard */; };
 		130F236522C69AB800A9A7D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 130F236422C69AB800A9A7D6 /* Assets.xcassets */; };
 		130F236822C69AB800A9A7D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 130F236622C69AB800A9A7D6 /* LaunchScreen.storyboard */; };
+		130F237022C7422E00A9A7D6 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130F236F22C7422E00A9A7D6 /* PresentationController.swift */; };
+		130F237222C74ADD00A9A7D6 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130F237122C74ADD00A9A7D6 /* Math.swift */; };
+		13D2981322D1FCF7005A7F06 /* TransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2981222D1FCF7005A7F06 /* TransitionDriver.swift */; };
+		13D2981522D1FD0F005A7F06 /* PresentAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2981422D1FD0F005A7F06 /* PresentAnimation.swift */; };
+		13D2981722D1FD1E005A7F06 /* DismissAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2981622D1FD1E005A7F06 /* DismissAnimation.swift */; };
+		13D2981922D1FD32005A7F06 /* PanelTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2981822D1FD32005A7F06 /* PanelTransition.swift */; };
+		13D2981B22D1FD4F005A7F06 /* ChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2981A22D1FD4F005A7F06 /* ChildViewController.swift */; };
+		13D2981D22D1FD71005A7F06 /* InstantPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2981C22D1FD71005A7F06 /* InstantPanGestureRecognizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +30,14 @@
 		130F236422C69AB800A9A7D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		130F236722C69AB800A9A7D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		130F236922C69AB800A9A7D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		130F236F22C7422E00A9A7D6 /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
+		130F237122C74ADD00A9A7D6 /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
+		13D2981222D1FCF7005A7F06 /* TransitionDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionDriver.swift; sourceTree = "<group>"; };
+		13D2981422D1FD0F005A7F06 /* PresentAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentAnimation.swift; sourceTree = "<group>"; };
+		13D2981622D1FD1E005A7F06 /* DismissAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissAnimation.swift; sourceTree = "<group>"; };
+		13D2981822D1FD32005A7F06 /* PanelTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelTransition.swift; sourceTree = "<group>"; };
+		13D2981A22D1FD4F005A7F06 /* ChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildViewController.swift; sourceTree = "<group>"; };
+		13D2981C22D1FD71005A7F06 /* InstantPanGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantPanGestureRecognizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,13 +71,45 @@
 			isa = PBXGroup;
 			children = (
 				130F235D22C69AB700A9A7D6 /* AppDelegate.swift */,
-				130F235F22C69AB700A9A7D6 /* ParentViewController.swift */,
 				130F236122C69AB700A9A7D6 /* Main.storyboard */,
 				130F236422C69AB800A9A7D6 /* Assets.xcassets */,
 				130F236622C69AB800A9A7D6 /* LaunchScreen.storyboard */,
 				130F236922C69AB800A9A7D6 /* Info.plist */,
+				13D2981E22D1FD7E005A7F06 /* Controllers */,
+				13D2981F22D1FD86005A7F06 /* Transition */,
 			);
 			path = FluidTransition;
+			sourceTree = "<group>";
+		};
+		13D2981E22D1FD7E005A7F06 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				130F235F22C69AB700A9A7D6 /* ParentViewController.swift */,
+				13D2981A22D1FD4F005A7F06 /* ChildViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		13D2981F22D1FD86005A7F06 /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+				13D2981822D1FD32005A7F06 /* PanelTransition.swift */,
+				130F236F22C7422E00A9A7D6 /* PresentationController.swift */,
+				13D2982022D1FDB2005A7F06 /* Animations */,
+				13D2981222D1FCF7005A7F06 /* TransitionDriver.swift */,
+				130F237122C74ADD00A9A7D6 /* Math.swift */,
+				13D2981C22D1FD71005A7F06 /* InstantPanGestureRecognizer.swift */,
+			);
+			path = Transition;
+			sourceTree = "<group>";
+		};
+		13D2982022D1FDB2005A7F06 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				13D2981422D1FD0F005A7F06 /* PresentAnimation.swift */,
+				13D2981622D1FD1E005A7F06 /* DismissAnimation.swift */,
+			);
+			path = Animations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +183,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13D2981722D1FD1E005A7F06 /* DismissAnimation.swift in Sources */,
 				130F236022C69AB700A9A7D6 /* ParentViewController.swift in Sources */,
+				13D2981B22D1FD4F005A7F06 /* ChildViewController.swift in Sources */,
+				13D2981322D1FCF7005A7F06 /* TransitionDriver.swift in Sources */,
+				13D2981922D1FD32005A7F06 /* PanelTransition.swift in Sources */,
 				130F235E22C69AB700A9A7D6 /* AppDelegate.swift in Sources */,
+				130F237022C7422E00A9A7D6 /* PresentationController.swift in Sources */,
+				13D2981522D1FD0F005A7F06 /* PresentAnimation.swift in Sources */,
+				130F237222C74ADD00A9A7D6 /* Math.swift in Sources */,
+				13D2981D22D1FD71005A7F06 /* InstantPanGestureRecognizer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
