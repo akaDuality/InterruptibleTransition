@@ -84,7 +84,14 @@ class TransitionDriver: UIPercentDrivenInteractiveTransition {
     private func handleDismiss(recognizer r: UIPanGestureRecognizer) {
         switch r.state {
         case .began:
-            presentedController?.dismiss(animated: true)
+            pause()
+            
+            let isNotDismissing = presentedController!.view.transform == .identity
+            if isNotDismissing {
+                presentedController?.dismiss(animated: true)
+            } else {
+                pause() // Pause already dismissing transition
+            }
             
         case .changed:
             update(percentComplete + r.incrementToBottom())
