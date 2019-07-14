@@ -9,15 +9,22 @@
 import UIKit
 
 class DimmPresentationController: PresentationController {
+    
     override func presentationTransitionWillBegin() {
         super.presentationTransitionWillBegin()
         
         containerView?.insertSubview(dimmView, at: 0)
-        dimmView.frame = containerView!.frame
+        
         
         performAlongsidetranstionIfPossible { [unowned self] in
             self.dimmView.alpha = 1
         }
+    }
+    
+    override func containerViewDidLayoutSubviews() {
+        super.containerViewDidLayoutSubviews()
+        
+        dimmView.frame = containerView!.frame
     }
     
     override func presentationTransitionDidEnd(_ completed: Bool) {
@@ -45,16 +52,17 @@ class DimmPresentationController: PresentationController {
     }
     
     private func performAlongsidetranstionIfPossible(_ block: @escaping () -> Void) {
-        if let coordinator = self.presentedViewController.transitionCoordinator {
-            coordinator.animate(alongsideTransition: { (_) in
-                block()
-            }, completion: nil)
-        } else {
+        guard let coordinator = self.presentedViewController.transitionCoordinator else {
             block()
+            return
         }
+            
+        coordinator.animate(alongsideTransition: { (_) in
+            block()
+        }, completion: nil)
     }
     
-    private var dimmView: UIView = {
+    private lazy var dimmView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(white: 0, alpha: 0.3)
         view.alpha = 0

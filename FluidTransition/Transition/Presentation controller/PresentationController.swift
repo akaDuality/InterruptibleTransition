@@ -10,25 +10,33 @@ import UIKit
 
 class PresentationController: UIPresentationController {
     
-    var driver: TransitionDriver!
-    
     override var shouldPresentInFullscreen: Bool {
         return false
     }
     
     override var frameOfPresentedViewInContainerView: CGRect {
-        let screenBounds = UIScreen.main.bounds
-        let halfHeight = screenBounds.height / 2
-        return CGRect(x: 0, y: halfHeight, width: screenBounds.width, height: halfHeight)
+        let bounds = containerView!.bounds
+        let halfHeight = bounds.height / 2
+        return CGRect(x: 0,
+                      y: halfHeight,
+                      width: bounds.width,
+                      height: halfHeight)
     }
     
     override func presentationTransitionWillBegin() {
         super.presentationTransitionWillBegin()
         
         containerView?.addSubview(presentedView!)
+        
+    }
+    
+    override func containerViewDidLayoutSubviews() {
+        super.containerViewDidLayoutSubviews()
+        
         presentedView?.frame = frameOfPresentedViewInContainerView
     }
     
+    var driver: TransitionDriver!
     override func presentationTransitionDidEnd(_ completed: Bool) {
         super.presentationTransitionDidEnd(completed)
         
