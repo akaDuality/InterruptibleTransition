@@ -42,3 +42,21 @@ extension PresentAnimation: UIViewControllerAnimatedTransitioning {
         return self.animator(using: transitionContext)
     }
 }
+
+// MARK: - iOS 9
+//extension PresentAnimation {
+//    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+//        let to = transitionContext.view(forKey: .to)!
+//        let finalFrame = transitionContext.finalFrame(for: transitionContext.viewController(forKey: .to)!)
+//
+//        to.frame = finalFrame.offsetBy(dx: 0, dy: finalFrame.height)
+//
+//        UIView.animate(withDuration: duration, delay: 0,
+//                       usingSpringWithDamping: 1, initialSpringVelocity: 0,
+//                       options: [.curveEaseOut], animations: {
+//                        to.frame = finalFrame
+//        }) { (_) in
+//            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+//        }
+//    }
+//}
