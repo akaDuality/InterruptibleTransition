@@ -21,8 +21,10 @@ class DismissAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     func interruptibleAnimator(using transitionContext: UIViewControllerContextTransitioning) -> UIViewImplicitlyAnimating {
         let from = transitionContext.view(forKey: .from)!
         
+        let initialFrame = transitionContext.initialFrame(for: transitionContext.viewController(forKey: .from)!)
+        
         animator = UIViewPropertyAnimator(duration: duration, curve: .easeOut) {
-            from.transform = CGAffineTransform(translationX: 0, y: from.bounds.height)
+            from.frame = initialFrame.offsetBy(dx: 0, dy: initialFrame.height)
         }
         
         animator!.addCompletion { (position) in

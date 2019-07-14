@@ -21,9 +21,11 @@ class PresentAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     func interruptibleAnimator(using transitionContext: UIViewControllerContextTransitioning) -> UIViewImplicitlyAnimating {
         let to = transitionContext.view(forKey: .to)!
         
-        to.transform = CGAffineTransform(translationX: 0, y: to.bounds.height)
+        let finalFrame = transitionContext.finalFrame(for: transitionContext.viewController(forKey: .to)!)
+        
+        to.frame = finalFrame.offsetBy(dx: 0, dy: finalFrame.height)
         animator = UIViewPropertyAnimator(duration: duration, curve: .easeOut) {
-            to.transform = .identity
+            to.frame = finalFrame
         }
         
         animator!.addCompletion { (position) in
