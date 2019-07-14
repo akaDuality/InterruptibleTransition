@@ -12,7 +12,6 @@ class PanelTransition: NSObject, UIViewControllerTransitioningDelegate {
     
     private let driver = TransitionDriver()
     
-    
     // MARK: - Presentation controller
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         

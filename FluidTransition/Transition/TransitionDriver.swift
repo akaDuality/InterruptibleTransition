@@ -86,11 +86,11 @@ class TransitionDriver: UIPercentDrivenInteractiveTransition {
         case .began:
             pause()
             
-            let isNotDismissing = presentedController!.view.transform == .identity
-            if isNotDismissing {
-                presentedController?.dismiss(animated: true)
-            } else {
+            let isRunning = percentComplete != 0
+            if isRunning {
                 pause() // Pause already dismissing transition
+            } else {
+                presentedController?.dismiss(animated: true) // Start dismissing
             }
             
         case .changed:
