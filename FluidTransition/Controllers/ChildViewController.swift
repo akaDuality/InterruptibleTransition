@@ -10,11 +10,11 @@ import UIKit
 
 class ChildViewController: UIViewController {
     
-    let animator = PanelTransition()
+    private let transition = PanelTransition()
     
     init() {
         super.init(nibName: nil, bundle: nil)
-        self.transitioningDelegate = animator
+        self.transitioningDelegate = transition
         self.modalPresentationStyle = .custom
     }
     
