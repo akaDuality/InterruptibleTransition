@@ -14,6 +14,7 @@
 		130F236822C69AB800A9A7D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 130F236622C69AB800A9A7D6 /* LaunchScreen.storyboard */; };
 		130F237022C7422E00A9A7D6 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130F236F22C7422E00A9A7D6 /* PresentationController.swift */; };
 		130F237222C74ADD00A9A7D6 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130F237122C74ADD00A9A7D6 /* Math.swift */; };
+		1384F52D22DB5668006EF47D /* TransitionDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1384F52C22DB5668006EF47D /* TransitionDirection.swift */; };
 		13D2981322D1FCF7005A7F06 /* TransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2981222D1FCF7005A7F06 /* TransitionDriver.swift */; };
 		13D2981522D1FD0F005A7F06 /* PresentAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2981422D1FD0F005A7F06 /* PresentAnimation.swift */; };
 		13D2981722D1FD1E005A7F06 /* DismissAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2981622D1FD1E005A7F06 /* DismissAnimation.swift */; };
@@ -33,6 +34,7 @@
 		130F236922C69AB800A9A7D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		130F236F22C7422E00A9A7D6 /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
 		130F237122C74ADD00A9A7D6 /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
+		1384F52C22DB5668006EF47D /* TransitionDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionDirection.swift; sourceTree = "<group>"; };
 		13D2981222D1FCF7005A7F06 /* TransitionDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionDriver.swift; sourceTree = "<group>"; };
 		13D2981422D1FD0F005A7F06 /* PresentAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentAnimation.swift; sourceTree = "<group>"; };
 		13D2981622D1FD1E005A7F06 /* DismissAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissAnimation.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			children = (
 				13D2981822D1FD32005A7F06 /* PanelTransition.swift */,
 				13D2981222D1FCF7005A7F06 /* TransitionDriver.swift */,
+				1384F52C22DB5668006EF47D /* TransitionDirection.swift */,
 				13D2982322D20547005A7F06 /* Presentation controller */,
 				13D2982022D1FDB2005A7F06 /* Animations */,
 				130F237122C74ADD00A9A7D6 /* Math.swift */,
@@ -202,6 +205,7 @@
 				130F235E22C69AB700A9A7D6 /* AppDelegate.swift in Sources */,
 				130F237022C7422E00A9A7D6 /* PresentationController.swift in Sources */,
 				13D2981522D1FD0F005A7F06 /* PresentAnimation.swift in Sources */,
+				1384F52D22DB5668006EF47D /* TransitionDirection.swift in Sources */,
 				130F237222C74ADD00A9A7D6 /* Math.swift in Sources */,
 				13D2981D22D1FD71005A7F06 /* InstantPanGestureRecognizer.swift in Sources */,
 				13D2982222D204C2005A7F06 /* DimmPresentationController.swift in Sources */,

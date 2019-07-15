@@ -9,22 +9,18 @@
 import UIKit
 
 class TransitionDriver: UIPercentDrivenInteractiveTransition {
-    private var presentedController: UIViewController?
     
-    enum Direction {
-        case present, dismiss
+    func link(to controller: UIViewController) {
+        presentedController = controller
         
-        mutating func toggle() {
-            switch self {
-            case .present:
-                self = .dismiss
-            case .dismiss:
-                self = .present
-            }
-        }
+        panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handle(recognizer:)))
+        presentedController?.view.addGestureRecognizer(panRecognizer!)
     }
     
-    var direction: Direction = .present
+    private var presentedController: UIViewController?
+    private var panRecognizer: UIPanGestureRecognizer?
+    
+    var direction: TransitionDirection = .present
     
     override var wantsInteractiveStart: Bool {
         get {
@@ -39,15 +35,10 @@ class TransitionDriver: UIPercentDrivenInteractiveTransition {
         
         set { }
     }
-    
-    private var panRecognizer: UIPanGestureRecognizer?
-    
-    func link(to controller: UIViewController) {
-        presentedController = controller
-        
-        panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handle(recognizer:)))
-        presentedController?.view.addGestureRecognizer(panRecognizer!)
-    }
+}
+
+// MARK: - Gesture Handling
+extension TransitionDriver {
     
     @objc private func handle(recognizer r: UIPanGestureRecognizer) {
         switch direction {
