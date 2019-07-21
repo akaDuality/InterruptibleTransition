@@ -75,15 +75,12 @@ extension TransitionDriver {
     private func handleDismiss(recognizer r: UIPanGestureRecognizer) {
         switch r.state {
         case .began:
-            pause()
+            pause() // Pause allows to detect isRunning
             
-            let isRunning = percentComplete != 0
-            if isRunning {
-                pause() // Pause already dismissing transition
-            } else {
-                presentedController?.dismiss(animated: true) // Start dismissing
+            if !isRunning {
+                presentedController?.dismiss(animated: true) // Start the new one
             }
-            
+        
         case .changed:
             update(percentComplete + r.incrementToBottom())
             
@@ -100,6 +97,11 @@ extension TransitionDriver {
         default:
             break
         }
+    }
+    
+    /// Pause before call
+    private var isRunning: Bool {
+        return percentComplete != 0
     }
 }
 
