@@ -10,6 +10,7 @@ import UIKit
 
 class TransitionDriver: UIPercentDrivenInteractiveTransition {
     
+    // MARK: - Linking
     func link(to controller: UIViewController) {
         presentedController = controller
         
@@ -17,11 +18,11 @@ class TransitionDriver: UIPercentDrivenInteractiveTransition {
         presentedController?.view.addGestureRecognizer(panRecognizer!)
     }
     
-    private var presentedController: UIViewController?
+    private weak var presentedController: UIViewController?
     private var panRecognizer: UIPanGestureRecognizer?
     
-    var direction: TransitionDirection = .present
     
+    // MARK: - Override
     override var wantsInteractiveStart: Bool {
         get {
             switch direction {
@@ -35,10 +36,9 @@ class TransitionDriver: UIPercentDrivenInteractiveTransition {
         
         set { }
     }
-}
-
-// MARK: - Gesture Handling
-extension TransitionDriver {
+    
+    // MARK: - Direction
+    var direction: TransitionDirection = .present
     
     @objc private func handle(recognizer r: UIPanGestureRecognizer) {
         switch direction {
@@ -48,6 +48,10 @@ extension TransitionDriver {
             handleDismiss(recognizer: r)
         }
     }
+}
+
+// MARK: - Gesture Handling
+extension TransitionDriver {
     
     private func handlePresentation(recognizer r: UIPanGestureRecognizer) {
         switch r.state {
@@ -99,7 +103,7 @@ extension TransitionDriver {
         }
     }
     
-    /// Pause before call
+    /// `pause()` before call `isRunning`
     private var isRunning: Bool {
         return percentComplete != 0
     }
@@ -112,16 +116,10 @@ private extension UIPanGestureRecognizer {
     }
     
     var isProjectedToDownHalf: Bool {
-        let endLocation = projectedOffset(decelerationRate: .fast)
+        let endLocation = projectedLocation(decelerationRate: .fast)
         let isPresentationCompleted = endLocation.y > maxValue / 2
         
         return isPresentationCompleted
-    }
-    
-    func projectedOffset(decelerationRate: UIScrollView.DecelerationRate) -> CGPoint {
-        let velocityOffset = velocity(in: view).projectedOffset(decelerationRate: .normal)
-        let result = location(in: view!) + velocityOffset
-        return result
     }
     
     func incrementToBottom() -> CGFloat {
