@@ -9,8 +9,14 @@
 import UIKit
 
 class ParentViewController: UIViewController {
+    
     @IBAction func openDidPress(_ sender: Any) {
         let child = ChildViewController()
-        self.present(child, animated: true)
+        child.transitioningDelegate = transition
+        child.modalPresentationStyle = .custom
+        
+        present(child, animated: true)
     }
+    
+    private let transition = PanelTransition()
 }

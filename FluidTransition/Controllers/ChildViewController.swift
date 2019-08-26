@@ -10,18 +10,6 @@ import UIKit
 
 class ChildViewController: UIViewController {
     
-    private let transition = PanelTransition()
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
-        self.transitioningDelegate = transition
-        self.modalPresentationStyle = .custom
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
