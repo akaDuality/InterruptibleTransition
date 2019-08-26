@@ -10,6 +10,8 @@ import UIKit
 
 class ParentViewController: UIViewController {
     
+    private let transition = PanelTransition()
+    
     @IBAction func openDidPress(_ sender: Any) {
         let child = ChildViewController()
         child.transitioningDelegate = transition
@@ -17,6 +19,4 @@ class ParentViewController: UIViewController {
         
         present(child, animated: true)
     }
-    
-    private let transition = PanelTransition()
 }
