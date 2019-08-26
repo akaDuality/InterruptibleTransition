@@ -16,7 +16,7 @@ class DimmPresentationController: PresentationController {
         containerView?.insertSubview(dimmView, at: 0)
         
         
-        performAlongsidetranstionIfPossible { [unowned self] in
+        performAlongsideTransitionIfPossible { [unowned self] in
             self.dimmView.alpha = 1
         }
     }
@@ -38,7 +38,7 @@ class DimmPresentationController: PresentationController {
     override func dismissalTransitionWillBegin() {
         super.dismissalTransitionWillBegin()
         
-        performAlongsidetranstionIfPossible { [unowned self] in
+        performAlongsideTransitionIfPossible { [unowned self] in
             self.dimmView.alpha = 0
         }
     }
@@ -51,7 +51,7 @@ class DimmPresentationController: PresentationController {
         }
     }
     
-    private func performAlongsidetranstionIfPossible(_ block: @escaping () -> Void) {
+    private func performAlongsideTransitionIfPossible(_ block: @escaping () -> Void) {
         guard let coordinator = self.presentedViewController.transitionCoordinator else {
             block()
             return
