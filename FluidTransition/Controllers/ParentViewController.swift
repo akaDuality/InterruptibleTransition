@@ -10,13 +10,25 @@ import UIKit
 
 class ParentViewController: UIViewController {
     
-    private let transition = PanelTransition()
+    private var child: ChildViewController!
+    private var transition: PanelTransition!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        child = ChildViewController()
+        transition = PanelTransition(presented: child, presenting: self)
+        
+        // Setup the child
+        child.modalPresentationStyle = .custom
+        child.transitioningDelegate = transition
+    }
+    
+    override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge {
+        return .bottom
+    }
     
     @IBAction func openDidPress(_ sender: Any) {
-        let child = ChildViewController()
-        child.transitioningDelegate = transition
-        child.modalPresentationStyle = .custom
-        
-        present(child, animated: true)
+        self.present(child, animated: true)
     }
 }

@@ -10,16 +10,23 @@ import UIKit
 
 class TransitionDriver: UIPercentDrivenInteractiveTransition {
     
-    // MARK: - Linking
-    func link(to controller: UIViewController) {
-        presentedController = controller
+    func linkPresentationGesture(to presentedController: UIViewController, presentingController: UIViewController) {
+        self.presentedController = presentedController
+        self.presentingController = presentingController
         
         panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handle(recognizer:)))
-        presentedController?.view.addGestureRecognizer(panRecognizer!)
+        presentedController.view.addGestureRecognizer(panRecognizer!)
+        
+        screenEdgePanRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handlePresentation(recognizer:)))
+        screenEdgePanRecognizer!.edges = .bottom
+        presentingController.view.addGestureRecognizer(screenEdgePanRecognizer!)
     }
     
     private weak var presentedController: UIViewController?
+    private weak var presentingController: UIViewController?
+    
     private var panRecognizer: UIPanGestureRecognizer?
+    private var screenEdgePanRecognizer: UIScreenEdgePanGestureRecognizer?
     
     
     // MARK: - Override
@@ -27,7 +34,8 @@ class TransitionDriver: UIPercentDrivenInteractiveTransition {
         get {
             switch direction {
             case .present:
-                return false
+                let gestureIsActive = screenEdgePanRecognizer?.state == .began
+                return gestureIsActive
             case .dismiss:
                 let gestureIsActive = panRecognizer?.state == .began
                 return gestureIsActive
@@ -53,10 +61,14 @@ class TransitionDriver: UIPercentDrivenInteractiveTransition {
 // MARK: - Gesture Handling
 extension TransitionDriver {
     
-    private func handlePresentation(recognizer r: UIPanGestureRecognizer) {
+    @objc private func handlePresentation(recognizer r: UIPanGestureRecognizer) {
         switch r.state {
         case .began:
             pause()
+            
+            if !isRunning {
+                presentingController?.present(presentedController!, animated: true)
+            }
         case .changed:
             let increment = -r.incrementToBottom(maxTranslation: maxTranslation)
             update(percentComplete + increment)

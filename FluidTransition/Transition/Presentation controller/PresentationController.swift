@@ -44,4 +44,12 @@ class PresentationController: UIPresentationController {
             driver.direction = .dismiss
         }
     }
+    
+    override func dismissalTransitionDidEnd(_ completed: Bool) {
+        super.dismissalTransitionDidEnd(completed)
+        
+        if completed {
+            driver.direction = .present
+        }
+    }
 }

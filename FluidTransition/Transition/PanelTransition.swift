@@ -10,11 +10,14 @@ import UIKit
 
 class PanelTransition: NSObject, UIViewControllerTransitioningDelegate {
     
+    init(presented: UIViewController, presenting: UIViewController) {
+        driver.linkPresentationGesture(to: presented, presentingController: presenting)
+    }
+    
     // MARK: - Presentation controller
     private let driver = TransitionDriver()
     
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        driver.link(to: presented)
         
         let presentationController = DimmPresentationController(presentedViewController: presented,
                                                                 presenting: presenting ?? source)
