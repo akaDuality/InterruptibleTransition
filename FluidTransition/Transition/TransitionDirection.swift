@@ -10,13 +10,4 @@ import Foundation
 
 enum TransitionDirection {
     case present, dismiss
-    
-    mutating func toggle() {
-        switch self {
-        case .present:
-            self = .dismiss
-        case .dismiss:
-            self = .present
-        }
-    }
 }
