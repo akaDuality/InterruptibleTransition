@@ -58,11 +58,11 @@ extension TransitionDriver {
         case .began:
             pause()
         case .changed:
-            let increment = -r.incrementToBottom()
+            let increment = -r.incrementToBottom(maxTranslation: maxTranslation)
             update(percentComplete + increment)
             
         case .ended, .cancelled:
-            if r.isProjectedToDownHalf{
+            if r.isProjectedToDownHalf(maxTranslation: maxTranslation) {
                 cancel()
             } else {
                 finish()
@@ -86,10 +86,10 @@ extension TransitionDriver {
             }
         
         case .changed:
-            update(percentComplete + r.incrementToBottom())
+            update(percentComplete + r.incrementToBottom(maxTranslation: maxTranslation))
             
         case .ended, .cancelled:
-            if r.isProjectedToDownHalf {
+            if r.isProjectedToDownHalf(maxTranslation: maxTranslation) {
                 finish()
             } else {
                 cancel()
@@ -103,6 +103,10 @@ extension TransitionDriver {
         }
     }
     
+    var maxTranslation: CGFloat {
+        return presentedController?.view.frame.height ?? 0
+    }
+    
     /// `pause()` before call `isRunning`
     private var isRunning: Bool {
         return percentComplete != 0
@@ -110,23 +114,18 @@ extension TransitionDriver {
 }
 
 private extension UIPanGestureRecognizer {
-    
-    var maxValue: CGFloat {
-        return view!.bounds.height
-    }
-    
-    var isProjectedToDownHalf: Bool {
+    func isProjectedToDownHalf(maxTranslation: CGFloat) -> Bool {
         let endLocation = projectedLocation(decelerationRate: .fast)
-        let isPresentationCompleted = endLocation.y > maxValue / 2
+        let isPresentationCompleted = endLocation.y > maxTranslation / 2
         
         return isPresentationCompleted
     }
     
-    func incrementToBottom() -> CGFloat {
+    func incrementToBottom(maxTranslation: CGFloat) -> CGFloat {
         let translation = self.translation(in: view).y
         setTranslation(.zero, in: nil)
         
-        let percentIncrement = translation / maxValue
+        let percentIncrement = translation / maxTranslation
         return percentIncrement
     }
 }
