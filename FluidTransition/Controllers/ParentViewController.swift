@@ -14,8 +14,8 @@ class ParentViewController: UIViewController {
     
     @IBAction func openDidPress(_ sender: Any) {
         let child = ChildViewController()
-        child.transitioningDelegate = transition
         child.modalPresentationStyle = .custom
+        child.transitioningDelegate = transition
         
         present(child, animated: true)
     }

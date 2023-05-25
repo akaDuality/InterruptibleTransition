@@ -10,6 +10,7 @@ import UIKit
 
 class DimmPresentationController: PresentationController {
     
+    // MARK: Present
     override func presentationTransitionWillBegin() {
         super.presentationTransitionWillBegin()
         
@@ -35,6 +36,7 @@ class DimmPresentationController: PresentationController {
         }
     }
     
+    // MARK: Dismiss
     override func dismissalTransitionWillBegin() {
         super.dismissalTransitionWillBegin()
         
