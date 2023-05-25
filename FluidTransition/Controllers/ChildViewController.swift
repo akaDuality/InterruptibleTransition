@@ -38,3 +38,11 @@ class ChildViewController: UIViewController {
         self.dismiss(animated: true)
     }
 }
+
+extension ChildViewController: FloatingViewDestinationTransition {
+    func destination() -> Destination {
+        Destination(
+            parentView: view,
+            frameInParentCoordinates: CGRect(x: 25, y: 455, width: 100, height: 100))
+    }
+}
